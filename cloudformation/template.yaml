@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+# This is great, but it creates a lot of resources behind the scenes...
+Description: 'Webhook: Implements an HTTP-accessible endpoint.'
+Resources:
+  WebhookHandler:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: main
+      Runtime: go1.x
+      CodeUri: ../build.zip
+      MemorySize: 128
+      Timeout: 5
+      AutoPublishAlias: active
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /webhook
+            Method: post
+
