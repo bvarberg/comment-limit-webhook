@@ -5,15 +5,11 @@ env:
 phases:
   build:
     commands:
-      - echo "START: build"
       - go test
       - go build -o main
-      - echo "END: build"
   post_build:
     commands:
-      - echo "START: post_build"
       - zip build.zip main
-      - echo "END: post_build"
 artifacts:
   files:
     - build.zip
