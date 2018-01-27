@@ -1,12 +1,9 @@
 version: 0.2
-env:
-  variables:
-    GOOS: "linux"
 phases:
   build:
     commands:
-      - go test
-      - go build -o main
+      - make test
+      - make build
 artifacts:
   files:
-    - main
+    - artifacts/main
