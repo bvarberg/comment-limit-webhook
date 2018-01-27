@@ -16,8 +16,47 @@ func TestHandler(t *testing.T) {
 		err        error
 	}{
 		{
-			// Test that the handler responds with a 200 OK response
-			request:    events.APIGatewayProxyRequest{Body: ""},
+			// Responds "Bad Request" when given incomplete JSON
+			request:    events.APIGatewayProxyRequest{Body: `{}`},
+			statusCode: 200,
+			body:       "OK",
+			err:        nil,
+		},
+		{
+			// Responds "Too Many Comments" when event issue's comments exceed the threshold
+			request: events.APIGatewayProxyRequest{Body: `
+				{
+					"issue": {
+						"comments": 11
+					}
+				}
+			`},
+			statusCode: 200,
+			body:       "Too Many Comments",
+			err:        nil,
+		},
+		{
+			// Responds "Too Many Comments" when event issue's comments match the threshold
+			request: events.APIGatewayProxyRequest{Body: `
+				{
+					"issue": {
+						"comments": 10
+					}
+				}
+			`},
+			statusCode: 200,
+			body:       "Too Many Comments",
+			err:        nil,
+		},
+		{
+			// Responds "OK" when event issue's comments are below the threshold
+			request: events.APIGatewayProxyRequest{Body: `
+				{
+					"issue": {
+						"comments": 9
+					}
+				}
+			`},
 			statusCode: 200,
 			body:       "OK",
 			err:        nil,
