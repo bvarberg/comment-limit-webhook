@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    - GOOS: "linux"
+    GOOS: "linux"
 phases:
   build:
     commands:
