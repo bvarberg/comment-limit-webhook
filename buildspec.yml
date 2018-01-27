@@ -7,9 +7,6 @@ phases:
     commands:
       - go test
       - go build -o main
-  post_build:
-    commands:
-      - zip build.zip main
 artifacts:
   files:
-    - build.zip
+    - main
