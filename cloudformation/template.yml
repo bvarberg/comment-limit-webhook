@@ -1,6 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-# This is great, but it creates a lot of resources behind the scenes...
 Description: 'Webhook: Implements an HTTP-accessible endpoint.'
 Resources:
   WebhookHandler:
