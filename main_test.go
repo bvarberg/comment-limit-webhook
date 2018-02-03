@@ -1,6 +1,7 @@
 package main_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -16,11 +17,11 @@ func TestHandler(t *testing.T) {
 		err        error
 	}{
 		{
-			// Responds "Bad Request" when given incomplete JSON
-			request:    events.APIGatewayProxyRequest{Body: `{}`},
-			statusCode: 200,
-			body:       "OK",
-			err:        nil,
+			// Responds "Bad Request" when given invalid JSON
+			request:    events.APIGatewayProxyRequest{Body: `{`},
+			statusCode: 400,
+			body:       "Bad Request",
+			err:        &json.SyntaxError{},
 		},
 		{
 			// Responds "Too Many Comments" when event issue's comments exceed the threshold
